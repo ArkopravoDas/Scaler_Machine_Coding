@@ -2,6 +2,7 @@ package com.example.parkinglot.services;
 
 import com.example.parkinglot.models.*;
 import com.example.parkinglot.repository.GateRepository;
+import com.example.parkinglot.repository.TicketRepository;
 import com.example.parkinglot.strategy.BasicSlotFindingStrategy;
 import com.example.parkinglot.strategy.SlotFindingStrategy;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,12 @@ public class TicketService {
 
     private final GateRepository gateRepository;
     private final SlotFindingStrategy slotFindingStrategy;
+    private final TicketRepository ticketRepository;
 
-    public TicketService(GateRepository gateRepository) {
+    public TicketService(GateRepository gateRepository, TicketRepository ticketRepository) {
         this.gateRepository = gateRepository;
         this.slotFindingStrategy = new BasicSlotFindingStrategy();
+        this.ticketRepository = ticketRepository;
     }
 
 
@@ -40,7 +43,7 @@ public class TicketService {
         parkingSlot.setSlotState(SlotState.OCCUPIED);
         parkingSlot.setVehicle(vehicle);
 
-        return Ticket
+        Ticket ticket = Ticket
                 .builder()
                 .id(new Random().nextInt())
                 .operatorId(gate.getOperatorId())
@@ -49,6 +52,7 @@ public class TicketService {
                 .parkingSlot(parkingSlot)
                 .vehicle(vehicle)
                 .build();
-
+        ticketRepository.save(ticket);
+        return ticket;
     }
 }

@@ -5,8 +5,6 @@ import com.example.parkinglot.dtos.UserTicket;
 import com.example.parkinglot.models.Ticket;
 import com.example.parkinglot.models.Vehicle;
 import com.example.parkinglot.services.TicketService;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
@@ -34,7 +32,7 @@ public class TicketController {
 
     private static UserTicket getUserTicket(Ticket ticket) {
         return UserTicket.builder()
-                .ticketId(ticket.getId())
+                .ticketId((long)ticket.getId())
                 .floorNumber(ticket.getParkingSlot().getFloor())
                 .slotId(ticket.getParkingSlot().getId())
                 .time(ticket.getIssueTime())
