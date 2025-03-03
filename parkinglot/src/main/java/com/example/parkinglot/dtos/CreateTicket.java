@@ -6,13 +6,13 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-//@Getter
-//@Setter
+@Getter
+@Setter
 @Data
 public class CreateTicket {
     String vehicleRegNo;
     VehicleType vehicleType;
-    int gateId;
+    Long gateId;
     SlotType slotType;
 
 }

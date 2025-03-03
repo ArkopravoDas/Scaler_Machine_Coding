@@ -7,7 +7,9 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@Data
 @AllArgsConstructor
+@Builder
 public class Ticket {
     int id;
     int operatorId;
